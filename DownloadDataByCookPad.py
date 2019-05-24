@@ -15,11 +15,11 @@ import re
 # 30-490 为页面简单
 # 14059-1201100 为复杂
 # id = 29
-id = 0
+id = 4945532
 
 # error_number为抓取错误的页面
 error_number = 0
-download_number = 0
+download_number = 1
 while(id <= 4945532):
 	id = id + 1
 	try:
@@ -53,12 +53,18 @@ while(id <= 4945532):
 		file.close()
 
 		drop_html = re.compile(r'<[^>]+>',re.S)
-
+		date_reg_exp = re.compile('\d{4}[-/]\d{1,2}[-/]\d{1,2}')# 去掉日期开头的步骤
 		full_text = []
 
 		recipe_text = soup.find_all('dd')
+		#print(recipe_text)
 		for text_str in recipe_text:
+			
 			text = drop_html.sub('',str(text_str.find_all('p')))
+			if (date_reg_exp.search(text) != None):
+				#print('matched')
+				continue
+			
 			text = text.replace("[", "")
 			text = text.replace("]", "")
 			if text != '':
