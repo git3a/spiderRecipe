@@ -39,20 +39,21 @@ while(id <= 4945532):
 		#img_html = soup.find(id="main-photo").src.string
 		img_html = soup.find(id="main-photo").img.get('src')
 		
-
 		#材料
 		ingredient_name = ''
 		ingredient_quantity = ''
 		ingredients = soup.find(id = 'ingredients_list')
 		for child in ingredients.children:
+			if (str(child).find('ingredient_category') != -1):
+				continue
 			drop_html = re.compile(r'<[^>]+>',re.S)
 			text = drop_html.sub('',str(child))
 			text = text.strip()
 			if text != '':
 				#print (text.split())
 				text = text.split()
-				ingredient_name +=(text[0] + '#')
-				ingredient_quantity += (text[1] + '#')
+				ingredient_name +=(text[0] + '\n')
+				ingredient_quantity += (text[1] + '\n')
 
 		drop_html = re.compile(r'<[^>]+>',re.S)
 		date_reg_exp = re.compile('\d{4}[-/]\d{1,2}[-/]\d{1,2}')# 去掉日期开头的步骤
@@ -71,7 +72,8 @@ while(id <= 4945532):
 			text = text.replace("]", "")
 			if text != '':
 				#print(text)
-				setp_text+=(text + '#')
+				text = text.strip()
+				setp_text+=(text + '\n')
 	
 		cursor = db.cursor()
 		try:
