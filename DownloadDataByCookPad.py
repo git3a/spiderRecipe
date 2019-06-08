@@ -12,7 +12,7 @@ error_number = 0
 download_number = 0
 try:
 	#db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
-	db = pymysql.connect("/opt/bitnami/mysql/tmp/mysql.sock","root","Tfzn3FgkWDU2","haichidb" )
+	db = pymysql.connect("/opt/bitnami/mysql/tmp/mysql.sock","root","Tfzn3FgkWDU2","haochidb" )
 except:
 	print ("Could not connect to MySQL server.")
 	exit( 0 )
@@ -75,7 +75,7 @@ while(id <= 4945532):
 	
 		cursor = db.cursor()
 		try:
-			sql = "insert into testmodel_recipe(recipe_name, img_html, ingredient_name, ingredient_quantity, setp_text) values('%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, setp_text)
+			sql = "insert into testmodel_recipe(name, image, material, amount, step) values('%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, setp_text)
 			cursor.execute(sql)
 			db.commit()
 			#print ('db')
