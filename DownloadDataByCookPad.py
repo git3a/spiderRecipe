@@ -1,6 +1,4 @@
 
-# 目标网址：http://www.cookpad.com/recipe/
-
 from bs4 import BeautifulSoup
 import requests
 import os
@@ -10,7 +8,6 @@ import MySQLdb
 
 id = 4945000
 
-# error_number为抓取错误的页面
 error_number = 0
 download_number = 0
 try:
@@ -39,7 +36,7 @@ while(id <= 4945532):
 		#img_html = soup.find(id="main-photo").src.string
 		img_html = soup.find(id="main-photo").img.get('src')
 		
-		#材料
+		
 		ingredient_name = ''
 		ingredient_quantity = ''
 		ingredients = soup.find(id = 'ingredients_list')
@@ -56,7 +53,7 @@ while(id <= 4945532):
 				ingredient_quantity += (text[1] + '\n')
 
 		drop_html = re.compile(r'<[^>]+>',re.S)
-		date_reg_exp = re.compile('\d{4}[-/]\d{1,2}[-/]\d{1,2}')# 去掉日期开头的步骤
+		date_reg_exp = re.compile('\d{4}[-/]\d{1,2}[-/]\d{1,2}')
 		setp_text = ''
 
 		recipe_text = soup.find_all('dd')
@@ -91,4 +88,4 @@ while(id <= 4945532):
 		download_number += 1
 		if (download_number > 100): break
 cursor.close()
-print("抓取错误的页面数量为：" + str(error_number))
+
