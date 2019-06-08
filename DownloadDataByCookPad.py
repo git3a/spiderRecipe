@@ -76,8 +76,9 @@ while(id <= 4945532):
 		cursor = db.cursor()
 		try:
 			sql = "insert into recipe_recipe(name, image, material, amount, step) values('%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, setp_text)
-			cursor.execute(sql)
 			print(sql)
+			cursor.execute(sql)
+			
 			db.commit()
 			#print ('db')
 		except: 
