@@ -12,9 +12,9 @@ id = 4945000
 
 # error_number为抓取错误的页面
 error_number = 0
-download_number = 1
+download_number = 0
 try:
-	db = MySQLdb.connect("localhost", "root", "123", "test7",charset='utf8')
+	db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
 except:
 	print ("Could not connect to MySQL server.")
 	exit( 0 )
@@ -89,6 +89,6 @@ while(id <= 4945532):
 		error_number = error_number + 1
 	else:
 		download_number += 1
-		if (download_number > 10): break
+		if (download_number > 100): break
 cursor.close()
 print("抓取错误的页面数量为：" + str(error_number))
