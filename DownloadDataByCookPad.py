@@ -4,14 +4,15 @@ import requests
 import os
 import urllib.request
 import re
-import MySQLdb
+import pymysql
 
 id = 4945000
 
 error_number = 0
 download_number = 0
 try:
-	db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
+	#db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
+	db = pymysql.connect("/opt/bitnami/mysql/tmp/mysql.sock","root","Tfzn3FgkWDU2","haichidb" )
 except:
 	print ("Could not connect to MySQL server.")
 	exit( 0 )
@@ -25,13 +26,13 @@ while(id <= 4945532):
 		headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
 		
 		url = requests.get('http://www.cookpad.com/recipe/'+str(id)+'/', headers=headers)
-		print("当前爬取的网址为：" + url.url)
+		
 		html_doc = url.text
 		soup = BeautifulSoup(html_doc,"lxml")
 		#print(soup.prettify())
 		recipe_name = soup.find(id="recipe-title").h1.string
 		recipe_name = recipe_name.strip()
-		print("菜谱的名字为：" + recipe_name)
+		
 		
 		#img_html = soup.find(id="main-photo").src.string
 		img_html = soup.find(id="main-photo").img.get('src')
