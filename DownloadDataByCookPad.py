@@ -12,7 +12,7 @@ error_number = 0
 download_number = 0
 try:
 	#db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
-	db = pymysql.connect("localhost","root","Tfzn3FgkWDU2","haochidb" )
+	db = pymysql.connect("localhost","root","Tfzn3FgkWDU2","haochidb",charset='utf8')
 except:
 	print ("Could not connect to MySQL server.")
 	exit( 0 )
