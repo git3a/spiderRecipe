@@ -36,7 +36,8 @@ while(id <= 4945532):
 		
 		#img_html = soup.find(id="main-photo").src.string
 		img_html = soup.find(id="main-photo").img.get('src')
-		
+		if img_html == 'https://assets.cpcdn.com/assets/blank_logo_recipe_large.png?1b12035e517eeddc39631fb65f35fcad69e4b14bf9275634c54589903d659823':
+			continue
 		
 		ingredient_name = ''
 		ingredient_quantity = ''
@@ -56,7 +57,7 @@ while(id <= 4945532):
 		drop_html = re.compile(r'<[^>]+>',re.S)
 		date_reg_exp = re.compile('\d{4}[-/]\d{1,2}[-/]\d{1,2}')
 		setp_text = ''
-
+		step_time = ''
 		recipe_text = soup.find_all('dd')
 		#print(recipe_text)
 		for text_str in recipe_text:
@@ -71,12 +72,17 @@ while(id <= 4945532):
 			if text != '':
 				#print(text)
 				text = text.strip()
+				get_time = re.compile(r'\d{1,2}分')
+				res = get_time.search(text)
+				if res:
+					step_time+=res.group()[:-1]
+				else:
+					step_time+='0'
 				setp_text+=(text + '\n')
 	
 		cursor = db.cursor()
 		try:
-			sql = "insert into recipe_recipe(name, image, material, amount, step) values('%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, setp_text)
-			#print(sql)
+			sql = "insert into recipe_recipe(name, image, material, amount, step, time) values('%s','%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, step_text,step_time)
 			cursor.execute(sql)
 			
 			db.commit()
@@ -89,6 +95,6 @@ while(id <= 4945532):
 		error_number = error_number + 1
 	else:
 		download_number += 1
-		if (download_number > 100): break
+		if (download_number >= 100): break
 cursor.close()
 
