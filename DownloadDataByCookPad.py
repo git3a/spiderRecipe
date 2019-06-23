@@ -12,7 +12,8 @@ error_number = 0
 download_number = 0
 try:
 	#db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
-	db = pymysql.connect("localhost","root","Tfzn3FgkWDU2","haochidb",charset='utf8')
+	#db = pymysql.connect("localhost","root","Tfzn3FgkWDU2","haochidb",charset='utf8')
+    db = pymysql.connect("localhost","root","1234","haochidb",charset='utf8')
 except:
 	print ("Could not connect to MySQL server.")
 	exit( 0 )
@@ -56,7 +57,7 @@ while(id <= 4945532):
 
 		drop_html = re.compile(r'<[^>]+>',re.S)
 		date_reg_exp = re.compile('\d{4}[-/]\d{1,2}[-/]\d{1,2}')
-		setp_text = ''
+		step_text = ''
 		step_time = ''
 		recipe_text = soup.find_all('dd')
 		#print(recipe_text)
@@ -78,7 +79,7 @@ while(id <= 4945532):
 					step_time+=res.group()[:-1]
 				else:
 					step_time+='0'
-				setp_text+=(text + '\n')
+				step_text+=(text + '\n')
 	
 		cursor = db.cursor()
 		try:
