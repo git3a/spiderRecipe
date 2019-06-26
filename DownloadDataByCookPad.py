@@ -83,7 +83,7 @@ while(id <= 4945532):
 	
 		cursor = db.cursor()
 		try:
-			sql = "insert into recipe_recipe(name, image, material, amount, step, time) values('%s','%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, step_text,step_time)
+			sql = "insert into Recipe_recipe(name, image, material, amount, step, time) values('%s','%s','%s','%s','%s','%s')" % (recipe_name, img_html, ingredient_name, ingredient_quantity, step_text,step_time)
 			cursor.execute(sql)
 			
 			db.commit()
