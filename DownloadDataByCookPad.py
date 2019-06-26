@@ -13,7 +13,7 @@ download_number = 0
 try:
 	#db = MySQLdb.connect("/opt/bitnami/mysql/tmp/mysql.sock", "root", "Tfzn3FgkWDU2", "haochidb",charset='utf8')
 	#db = pymysql.connect("localhost","root","Tfzn3FgkWDU2","haochidb",charset='utf8')
-    db = pymysql.connect("localhost","root","1234","haochidb",charset='utf8')
+	db = pymysql.connect("localhost","root","1234","haochidb",charset='utf8')
 except:
 	print ("Could not connect to MySQL server.")
 	exit( 0 )
@@ -76,9 +76,9 @@ while(id <= 4945532):
 				get_time = re.compile(r'\d{1,2}分')
 				res = get_time.search(text)
 				if res:
-					step_time+=res.group()[:-1]
+					step_time+=res.group()[:-1]+'\n'
 				else:
-					step_time+='0'
+					step_time+='0\n'
 				step_text+=(text + '\n')
 	
 		cursor = db.cursor()
